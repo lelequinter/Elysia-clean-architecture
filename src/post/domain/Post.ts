@@ -8,7 +8,7 @@ export class Post {
   ) {}
 
   getImage(){
-    return this.images
+    return this.images;
   }
 
   setImage(url: string){
