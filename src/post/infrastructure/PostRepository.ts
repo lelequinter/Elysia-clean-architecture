@@ -21,4 +21,16 @@ export class PostRepository implements IPostRepository {
 
     return new Post(post.id, post.description, post.images, post.userId);
   }
+
+  async getAll(userId: string): Promise<Post[]>{
+    const post = await this.db.post.findMany({
+      where: {
+        userId
+      }
+    })
+
+    return post.map(
+      (post) => new Post(post.id, post.description, post.images, post.userId)
+    );
+  }
 }

@@ -1,5 +1,6 @@
 import { Elysia, t } from 'elysia';
-import { createPostController } from '../../server/dependencies';
+import { createPostController } from '../../server/dependencies.js';
+import { findAllPostController } from '../../server/dependencies.js';
 
 export const postRouter = new Elysia({prefix: '/posts'})
     .post('/', createPostController.run.bind(createPostController), {
@@ -8,3 +9,4 @@ export const postRouter = new Elysia({prefix: '/posts'})
             image: t.File(),
         })
     })
+    .get('/', findAllPostController.run.bind(findAllPostController))

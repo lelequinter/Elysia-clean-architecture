@@ -9,6 +9,8 @@ import { PostRepository } from "../post/infrastructure/PostRepository.js";
 import { Create as CreatePost } from "../post/application/create.js";
 import { CreatePostController } from "../post/infrastructure/controllers/CreatePostController.js";
 import { UploadService } from "../services/upload.js";
+import { FindAllPost } from "../post/application/finAll.js";
+import { FindAllPostController } from "../post/infrastructure/controllers/FindAllPostController.js";
 
 const userRepository = new UserRepository();
 const postRepository = new PostRepository();
@@ -26,3 +28,6 @@ export const loginController = new LoginController(loginUser);
 //* Post
 const createPost = new CreatePost(postRepository, jwtService, uploadService);
 export const createPostController = new CreatePostController(createPost);
+
+const findAllPost = new FindAllPost(postRepository, jwtService);
+export const findAllPostController = new FindAllPostController(findAllPost);
