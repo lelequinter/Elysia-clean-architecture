@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.723.0",
+    "@aws-sdk/s3-request-presigner": "^3.723.0",
     "@elysiajs/swagger": "^1.1.6",
     "@prisma/client": "5.22.0",
     "bcrypt": "^5.1.1",

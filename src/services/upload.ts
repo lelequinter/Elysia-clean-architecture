@@ -1,5 +1,6 @@
 import type { IUploadService } from "./interfaces/IUpload";
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { GetObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 export class UploadService implements IUploadService {
 
@@ -29,5 +30,14 @@ export class UploadService implements IUploadService {
         await this.client.send(commad);
 
         return `${userId}/${file.name}`
+    }
+
+    async getSignedUrl( key: string ): Promise<string>{
+        const command = new GetObjectCommand({
+            Bucket: this.bucketName,
+            Key: key
+        })
+
+        return await getSignedUrl(this.client, command, {expiresIn: 3600})
     }
 }
