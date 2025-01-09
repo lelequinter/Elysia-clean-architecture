@@ -2,10 +2,12 @@
   "name": "clean-api",
   "version": "1.0.50",
   "scripts": {
+    "res": "bun run resource.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.723.0",
     "@elysiajs/swagger": "^1.1.6",
     "@prisma/client": "5.22.0",
     "bcrypt": "^5.1.1",

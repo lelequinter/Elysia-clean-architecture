@@ -1,5 +1,6 @@
 import { Elysia } from "elysia";
 import { userRouter } from "../user/userRouter.js";
+import { postRouter } from "../post/infrastructure/postRouter.js";
 import swagger from "@elysiajs/swagger";
 
 export class Server {
@@ -18,6 +19,9 @@ export class Server {
         this.app.group('/api', (app) => 
             app.use(userRouter)
         );
+        this.app.group('/api', (app) => 
+            app.use(postRouter)
+        )
     }
 
     public start(){
