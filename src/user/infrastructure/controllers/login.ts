@@ -1,29 +1,30 @@
-import { LoginUser } from "../../application/login";
-
+import { LoginUser } from "../../application/login.js";
+type Login = {
+    body: {
+        email: string,
+        password: string
+    },
+    token: string
+}
 export class LoginController {
     constructor(
-        private loginUser: LoginUser,
+        private loginUser: LoginUser
     ){}
+    async run({body}: Login) {
 
-    async run({body, token}: {body: {email: string, password: string}, token: string}){
-
-        console.log('Token: ', token);
-        
         try {
-            const user = await this.loginUser.run(body.email, body.password);
-            
+            const user =  await this.loginUser.run(body.email, body.password);
             return {
                 code: 200,
                 user,
                 message: 'User logged in'
-            };
-        } catch (e) {
-            const err = e as Error;
-
+            }
+        } catch (error) {
+            const err = error as Error
             return {
                 code: 400,
-                message: err.message,
-            };
+                message: err.message
+            }
         }
     }
 }

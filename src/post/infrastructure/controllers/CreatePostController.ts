@@ -15,12 +15,14 @@ export class CreatePostController {
   async run({body, token}: Request) {
     try {
         const post = await this.create.run(body.description, body.image, token);
+
         return {
           status: 200,
           post
         };
       } catch (error) {
         const e = error as Error;
+        
         return {
           status: 400,
           error: e.message

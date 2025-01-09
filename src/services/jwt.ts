@@ -1,4 +1,4 @@
-import type { IJWT } from "./interfaces/IJWT";
+import type { IJWT } from "./interfaces/IJWT.js";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
 export class JWT implements IJWT{
@@ -7,6 +7,7 @@ export class JWT implements IJWT{
     }
 
     verify(token: string): JwtPayload {
-        return jwt.verify(token, 'secret') as JwtPayload;
+        const newToken: string = token?.startsWith('Bearer ') ? token.slice(7) : token;
+        return jwt.verify(newToken, 'secret') as JwtPayload;
     }
 }

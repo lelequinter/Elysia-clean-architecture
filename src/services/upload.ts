@@ -4,22 +4,26 @@ import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 export class UploadService implements IUploadService {
 
     private client: S3Client;
+    private bucketName: string = process.env.BUCKET_NAME!;
+    private region: string = process.env.AWS_REGION!;
+    private accessKeyId: string = process.env.AWS_ACCESS_KEY_ID!;
+    private secretAccessKey: string = process.env.AWS_SECRET_ACCESS_KEY!;
 
     constructor(){
         this.client = new S3Client({ 
-            region: process.env.AWS_REGION || 'us-east-1',
+            region: this.region,
             credentials: {
-                accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
-                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_ID || '',
+                accessKeyId: this.accessKeyId,
+                secretAccessKey: this.secretAccessKey,
             }
         });
     }
 
     async save(userId: string, file: any){
         const commad = new PutObjectCommand({
-            Bucket: process.env.BUCKET_NAME,
+            Bucket: this.bucketName,
             Key: `${userId}/${file.name}`,
-            Body: file.arrayBuffer(),
+            Body: Buffer.from( await file.arrayBuffer()),
         })
 
         await this.client.send(commad);

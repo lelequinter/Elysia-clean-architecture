@@ -10,7 +10,7 @@ export class PostRepository implements IPostRepository {
     this.db = new PrismaClient();
   }
     
-  async create(description: string, images: any, userId: string): Promise<Post> {
+  async create(description: string, images: any, userId: string): Promise<Post> {  
     const post = await this.db.post.create({
       data: {
         description,

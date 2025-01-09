@@ -18,11 +18,8 @@ export class LoginUser {
 
         const token = await this.jwt.sign(user.id);
         user.setToken(token);
-
-        return {
-            token: this.jwt.sign(user.id),
-            user,
-        };
+        
+        return user;
     }
 }
 
