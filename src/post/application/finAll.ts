@@ -7,7 +7,7 @@ export class FindAllPost {
     constructor( 
         private postRepository: IPostRepository, 
         private jwtService: IJWT,
-        private uploadService: IUploadService,
+        private uploadService?: IUploadService,
     ){
         this.uploadService = new UploadService;
     }
@@ -17,11 +17,11 @@ export class FindAllPost {
         const posts = await this.postRepository.getAll(userId);
 
         const urls = await Promise.all( posts.map( async post => {            
-            return await this.uploadService.getSignedUrl(post.getImage());
+            return await this.uploadService?.getSignedUrl(post.getImage());
         }) );
         
         return posts.map((post, index) => {
-            post.setImage(urls[index])
+            post.setImage(String(urls[index]))
             return post;
         });
     }
